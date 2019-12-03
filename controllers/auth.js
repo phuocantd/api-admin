@@ -1,7 +1,7 @@
 const createError = require('http-errors');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
-
+const asyncHandler = require('../middleware/async');
 
 exports.login = (req, res, next) => {
     passport.authenticate('local', {
@@ -15,13 +15,26 @@ exports.login = (req, res, next) => {
 };
 
 
+// @desc      Get current logged in user
+// @route     POST /api/auth/me
+// @access    Private
+exports.getMe = asyncHandler(async (req, res, next) => {
+    if (!req.user) {
+        return next(new createError(400, 'Đăng nhập không thành công'));
+    }
+
+    res.status(200).json({
+        success: true,
+        data: req.user
+    });
+
+});
+
+
 const sendTokenResponse = (statusCode, res, user) => {
     const payload = {
         id: user.id,
-        email: user.email,
-        name: user.name,
-        role: user.role,
-        avatar: user.avatar
+        role: user.role
     }
 
     const token = jwt.sign(
