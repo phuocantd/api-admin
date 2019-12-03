@@ -14,10 +14,14 @@ exports.login = (req, res, next) => {
     })(req, res)
 };
 
+
 const sendTokenResponse = (statusCode, res, user) => {
     const payload = {
         id: user.id,
-        role: user.role
+        email: user.email,
+        name: user.name,
+        role: user.role,
+        avatar: user.avatar
     }
 
     const token = jwt.sign(
