@@ -10,10 +10,11 @@ const {
 } = require('../controllers/admin');
 
 const {
-  protected
+  protected,
+  authorized
 } = require('../middleware/auth');
 
-// router.use(protected);
+router.use(protected);
 
 router
   .route('/')

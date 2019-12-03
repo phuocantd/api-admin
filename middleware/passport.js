@@ -13,11 +13,11 @@ const localStratery = new LocalStrategy({
 }, async (email, password, done) => {
     const user = await Admin.findOne({
         email: email
-    });
+    }).select('+password');
 
     if (!user) return done('Không tồn tại tài khoản', false);
-
-    const isMatch = await bcrypt.compare(password, user.password)
+    console.log(user);
+    const isMatch = await bcrypt.compare(password, user.password);
 
     if (isMatch) {
         return done(null, user);

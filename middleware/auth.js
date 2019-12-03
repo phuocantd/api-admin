@@ -19,6 +19,16 @@ const protected = (req, res, next) => {
 }
 
 
+const authorized = (...roles) => {
+    return (req, res, next) => {
+        if (!roles.includes(req.user.role)) {
+            return next(new createError(403, 'Bạn không thể đủ quyền hạn truy cập trang này'));
+        }
+        next();
+    };
+};
+
 module.exports = {
-    protected
+    protected,
+    authorized
 };

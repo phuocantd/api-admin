@@ -13,7 +13,7 @@ const AdminSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Vui lòng điền mật khẩu'],
         minlength: 6,
-        select: false // không select password khi get single user
+        select: false
     },
     name: {
         type: String,

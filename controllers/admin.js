@@ -35,8 +35,8 @@ exports.getAdmin = asyncHandler(async (req, res, next) => {
 // @access    Private
 exports.createAdmin = asyncHandler(async (req, res, next) => {
     const salt = await bcrypt.genSalt(10);
-    req.body.password = await bcrypt.hash(req.body.password, salt);
-
+    const password = await bcrypt.hash(req.body.password, salt);
+    req.body.password = password;
     const admin = await Admin.create(req.body);
 
     res.status(201).json({
