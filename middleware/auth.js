@@ -4,6 +4,7 @@ const Admin = require('../models/Admin');
 
 const protected = (req, res, next) => {
     passport.authenticate('jwt', {session: false,}, async (error, jwtPayload) => {
+        console.log(jwtPayload);
         if (error || !jwtPayload) {
             return next(new createError(401, 'Bạn không thể truy cập trang này'));
         }

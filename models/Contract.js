@@ -14,12 +14,12 @@ const ContractSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Vui lòng điền tiêu đề hợp đồng']
     },
-    tutor:{
+    tutor: {
         type: mongoose.Schema.ObjectId,
         ref: 'Tutor',
         required: [true, 'Vui lòng chọn người dạy']
     },
-    student:{
+    student: {
         type: mongoose.Schema.ObjectId,
         ref: 'Student',
         required: [true, 'Vui lòng chọn người học']
@@ -34,7 +34,7 @@ const ContractSchema = new mongoose.Schema({
             CONTRACT_STATUS_CANCELED
         ]
     },
-    rentHours:{
+    rentHours: {
         type: Number,
         required: [true, 'Vui lòng chọn số giờ thuê']
     },

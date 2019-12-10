@@ -5,6 +5,9 @@ const SpecializationSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Vui lòng điền thông tin chuyên ngành']
     },
+    isActive: {
+        default: true
+    }
 });
 
 module.exports = mongoose.model('Specialization', SpecializationSchema);

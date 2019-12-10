@@ -4,9 +4,6 @@ const bcrypt = require('bcryptjs');
 const Admin = require('../models/Admin');
 
 
-// @desc      Get all administrators
-// @route     GET /api/admins
-// @access    Private
 exports.getAdmins = asyncHandler(async (req, res, next) => {
     const admins = await Admin.find();
 
@@ -17,9 +14,7 @@ exports.getAdmins = asyncHandler(async (req, res, next) => {
 });
 
 
-// @desc      Get single administrator
-// @route     GET /api/admins/:id
-// @access    Private
+
 exports.getAdmin = asyncHandler(async (req, res, next) => {
     const admin = await Admin.findById(req.params.id);
 
@@ -30,9 +25,7 @@ exports.getAdmin = asyncHandler(async (req, res, next) => {
 });
 
 
-// @desc      Create administrator
-// @route     POST /api/admins
-// @access    Private
+
 exports.createAdmin = asyncHandler(async (req, res, next) => {
     const salt = await bcrypt.genSalt(10);
     const password = await bcrypt.hash(req.body.password, salt);
@@ -46,9 +39,7 @@ exports.createAdmin = asyncHandler(async (req, res, next) => {
 });
 
 
-// @desc      Update administrator
-// @route     PUT /api/admins/:id
-// @access    Private
+
 exports.updateAdmin = asyncHandler(async (req, res, next) => {
     const admin = await Admin.findByIdAndUpdate(req.params.id, req.body, {
         new: true,

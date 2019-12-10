@@ -10,9 +10,10 @@ const errorHandler = require('./middleware/error');
 const cors = require('cors')
 
 const indexRouter = require('./routes/index');
-const adminsRouter = require('./routes/admins');
 const authRouter = require('./routes/auth');
-
+const adminsRouter = require('./routes/admins');
+const usersRouter = require('./routes/user');
+const tagRouter = require('./routes/tag');
 
 const app = express();
 app.use(cors());
@@ -26,8 +27,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api', indexRouter);
-app.use('/api/admins', adminsRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/admins', adminsRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/tags', tagRouter);
 
 app.use(errorHandler);
 
