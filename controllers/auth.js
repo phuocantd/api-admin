@@ -15,9 +15,6 @@ exports.login = (req, res, next) => {
 };
 
 
-// @desc      Get current logged in user
-// @route     POST /api/auth/me
-// @access    Private
 exports.getMe = asyncHandler(async (req, res, next) => {
     if (!req.user) {
         return next(new createError(400, 'Đăng nhập không thành công'));

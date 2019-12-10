@@ -25,9 +25,7 @@ exports.getTag = asyncHandler(async (req, res, next) => {
 });
 
 
-// @desc      Add new course to bootcamp
-// @route     POST /api/tags
-// @access    Private
+
 exports.createTag = asyncHandler(async (req, res, next) => {
 
     const tag = await Tag.create(req.body);
@@ -39,12 +37,10 @@ exports.createTag = asyncHandler(async (req, res, next) => {
 });
 
 
-// @desc      Update course
-// @route     PUT /api/v1/courses/:id
-// @access    Private
+
 exports.updateTag = asyncHandler(async (req, res, next) => {
     const tag = await Tag.findByIdAndUpdate(req.params.id, req.body, {
-        new: true, // return new version of document
+        new: true, 
         runValidators: true
     });
 
@@ -55,12 +51,10 @@ exports.updateTag = asyncHandler(async (req, res, next) => {
 });
 
 
-// @desc      Deactivate tag
-// @route     DELETE /api/v1/courses/:id
-// @access    Private
+
 exports.deleteTag = asyncHandler(async (req, res, next) => {
     const tag = await Tag.findByIdAndUpdate(req.params.id, {isActive: false}, {
-        new: true, // return new version of document
+        new: true, 
         runValidators: true
     });
 
