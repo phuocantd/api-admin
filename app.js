@@ -14,9 +14,15 @@ const authRouter = require('./routes/auth');
 const adminsRouter = require('./routes/admins');
 const usersRouter = require('./routes/user');
 const tagRouter = require('./routes/tag');
+const corsOption = {
+    origin: true,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+    exposedHeaders: ["x-auth-token"]
+};
 
 const app = express();
-app.use(cors());
+app.use(cors(corsOption));
 connectDB();
 passportConfig();
 
