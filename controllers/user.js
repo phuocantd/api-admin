@@ -1,7 +1,7 @@
 const createError = require('http-errors');
 const asyncHandler = require('../middleware/async');
 const mongoose = require('mongoose');
-const User = require('../models/user');
+const User = require('../models/User');
 
 
 exports.getUsers = asyncHandler(async (req, res, next) => {
