@@ -15,6 +15,7 @@ const {
 } = require('../middleware/auth');
 
 router.use(protected);
+router.use(authorized('root'));
 
 router
   .route('/')
