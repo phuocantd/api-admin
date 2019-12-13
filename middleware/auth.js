@@ -2,7 +2,7 @@ const passport = require('passport');
 const createError = require('http-errors');
 const Admin = require('../models/Admin');
 
-const protected = (req, res, next) => {
+const protectedGetme = (req, res, next) => {
     passport.authenticate('jwt', {
         session: false,
     }, async (error, jwtPayload) => {
@@ -21,6 +21,23 @@ const protected = (req, res, next) => {
 }
 
 
+const protected = (req, res, next) => {
+    passport.authenticate('jwt', {
+        session: false,
+    }, async (error, jwtPayload) => {
+        if (error || !jwtPayload) {
+            return next(new createError(401, 'Token invalid'));
+        }
+        console.log('in protected jwtPaylod');
+        console.log(jwtPayload);
+
+        req.user = jwtPayload;
+        next();
+    })(req, res, next);
+}
+
+
+
 const authorized = (...roles) => {
     return (req, res, next) => {
         if (!roles.includes(req.user.role)) {
@@ -31,6 +48,7 @@ const authorized = (...roles) => {
 };
 
 module.exports = {
+    protectedGetme,
     protected,
     authorized
 };

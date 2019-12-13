@@ -5,12 +5,12 @@ const advancedSearch = require('../middleware/advancedSearch');
 
 const {
     getUsers,
-    getUser
+    getUser,
+    setActiveUser
 } = require('../controllers/user');
 
 const {
-    protected,
-    authorized
+    protected
 } = require('../middleware/auth');
 
 router.use(protected);
@@ -22,6 +22,6 @@ router
 router
     .route('/:id')
     .get(getUser)
-
+    .put(setActiveUser)
 
 module.exports = router;
