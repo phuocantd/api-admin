@@ -17,7 +17,7 @@ exports.login = (req, res, next) => {
 
 exports.getMe = asyncHandler(async (req, res, next) => {
     if (!req.user) {
-        return next(new createError(400, 'Đăng nhập không thành công'));
+        return next(new createError(400, 'Please sign in to continue'));
     }
 
     res.status(200).json({

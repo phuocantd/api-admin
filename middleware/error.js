@@ -8,13 +8,13 @@ const errorHandler = (err, req, res, next) => {
     console.log(err);
 
     if (err.name === 'CastError') {
-        const message = `Không tìm thấy tài nguyên`;
+        const message = `Resource not found`;
         error = new createError(404, message);
     }
 
 
     if (err.code === 11000) {
-        const message = 'Dữ liệu đã tồn tại';
+        const message = 'Data is already existed, please choose another one';
         error = new createError(404,message);
     }
 

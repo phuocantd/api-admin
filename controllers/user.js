@@ -39,6 +39,13 @@ exports.getUser = asyncHandler(async (req, res, next) => {
         }, {
             $unwind: "$tutorInfo"
         }, {
+            $lookup: {
+                from: 'tags',
+                localField: 'tutorInfo.tags',
+                foreignField: '_id',
+                as: 'tutorInfo.tags'
+            }
+        }, {
             $project: {
                 password: 0,
                 // tags: `$tutorInfo.tags`,
@@ -47,6 +54,7 @@ exports.getUser = asyncHandler(async (req, res, next) => {
             }
         }])
     }
+
 
     res.status(200).json({
         success: true,

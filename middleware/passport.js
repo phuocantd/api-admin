@@ -15,14 +15,14 @@ const localStratery = new LocalStrategy({
         email: email
     }).select('+password');
 
-    if (!user) return done('Không tồn tại tài khoản', false);
+    if (!user) return done('Account doesnt exist', false);
     console.log(user);
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (isMatch) {
         return done(null, user);
     } else {
-        return done('Tài khoản hoặc một khẩu không chính xác', false);
+        return done('Invalid credentials', false);
     }
 })
 
