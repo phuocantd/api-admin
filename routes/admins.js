@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router();
+const advancedSearch = require('../middleware/advancedSearch');
 const Admin = require('../models/Admin');
 
 const {
   getAdmins,
   getAdmin,
   createAdmin,
-  updateAdmin
+  updateAdmin,
+  deleteAdmin
 } = require('../controllers/admin');
 
 const {
@@ -19,13 +21,13 @@ router.use(authorized('root'));
 
 router
   .route('/')
-  .get(getAdmins)
-  .post(createAdmin);
+  .get(advancedSearch(Admin), getAdmins)
+  .post(createAdmin)
 
 router
   .route('/:id')
   .get(getAdmin)
   .put(updateAdmin)
-
+  .delete(deleteAdmin);
 
 module.exports = router;

@@ -5,11 +5,9 @@ const User = require('../models/User');
 
 
 exports.getUsers = asyncHandler(async (req, res, next) => {
-    const users = await User.find();
-
     res.status(200).json({
         success: true,
-        data: users
+        data: res.advancedSearch
     });
 });
 

@@ -16,7 +16,6 @@ const localStratery = new LocalStrategy({
     }).select('+password');
 
     if (!user) return done('Account doesnt exist', false);
-    console.log(user);
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (isMatch) {
@@ -33,6 +32,9 @@ const jwtStrategy = new JWTStrategy({
     if (!jwtPayload) {
         return done(true, null);
     }
+    // now jwtPayload had decrypted, if don't want more info -> skip these
+    // else looking more info via id in jwtPaylod.id
+    // console.log(jwtPayload);
     return done(null, jwtPayload);
 });
 
