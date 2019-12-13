@@ -16,6 +16,9 @@ const {
   authorized
 } = require('../middleware/auth');
 
+// protected has override code below
+// router.use(passport.authenticate('jwt', {session: false}));
+
 router.use(protected);
 router.use(authorized('root'));
 
