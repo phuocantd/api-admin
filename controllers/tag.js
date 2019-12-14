@@ -4,13 +4,10 @@ const Tag = require('../models/Tag');
 
 
 exports.getTags = asyncHandler(async (req, res, next) => {
-    const tags = await Tag.find({isActive: true});
-
-    return res.status(200).json({
+    res.status(200).json({
         success: true,
-        length: tags.length,
-        data: tags
-    })
+        data: res.advancedSearch
+    });
 });
 
 
@@ -40,7 +37,7 @@ exports.createTag = asyncHandler(async (req, res, next) => {
 
 exports.updateTag = asyncHandler(async (req, res, next) => {
     const tag = await Tag.findByIdAndUpdate(req.params.id, req.body, {
-        new: true, 
+        new: true,
         runValidators: true
     });
 
@@ -53,8 +50,10 @@ exports.updateTag = asyncHandler(async (req, res, next) => {
 
 
 exports.deleteTag = asyncHandler(async (req, res, next) => {
-    const tag = await Tag.findByIdAndUpdate(req.params.id, {isActive: false}, {
-        new: true, 
+    const tag = await Tag.findByIdAndUpdate(req.params.id, {
+        isActive: false
+    }, {
+        new: true,
         runValidators: true
     });
 
