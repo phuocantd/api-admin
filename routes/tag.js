@@ -6,8 +6,7 @@ const {
     getTags,
     getTag,
     createTag,
-    updateTag,
-    deleteTag
+    updateTag
 } = require('../controllers/tag');
 
 const advancedSearch =  require('../middleware/advancedSearch');
@@ -27,7 +26,6 @@ router
     .route('/:id')
     .get(getTag)
     .put(updateTag)
-    .delete(deleteTag)
 
 
 module.exports = router;

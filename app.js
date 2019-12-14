@@ -13,7 +13,9 @@ const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const adminsRouter = require('./routes/admins');
 const usersRouter = require('./routes/user');
-const tagRouter = require('./routes/tag');
+const tagsRouter = require('./routes/tag');
+const specializationsRouter = require('./routes/specialization');
+
 const corsOption = {
     origin: true,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
@@ -36,7 +38,8 @@ app.use('/api', indexRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/admins', adminsRouter);
 app.use('/api/users', usersRouter);
-app.use('/api/tags', tagRouter);
+app.use('/api/tags', tagsRouter);
+app.use('/api/specializations', specializationsRouter);
 
 app.use(errorHandler);
 

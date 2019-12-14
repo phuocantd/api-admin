@@ -26,7 +26,7 @@ const protected = (req, res, next) => {
         session: false,
     }, async (error, jwtPayload) => {
         if (error || !jwtPayload) {
-            return next(new createError(401, 'Token invalid'));
+            return next(new createError(401, 'Please sign in to continue'));
         }
         console.log('in protected jwtPaylod');
         console.log(jwtPayload);

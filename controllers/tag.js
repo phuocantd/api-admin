@@ -15,6 +15,11 @@ exports.getTags = asyncHandler(async (req, res, next) => {
 exports.getTag = asyncHandler(async (req, res, next) => {
     const tag = await Tag.findById(req.params.id);
 
+    if (!tag) {
+        return next(new createError(404, `Tag not found with id ${req.params.id}`));
+    }
+
+
     res.status(200).json({
         success: true,
         data: tag
@@ -41,21 +46,9 @@ exports.updateTag = asyncHandler(async (req, res, next) => {
         runValidators: true
     });
 
-    res.status(200).json({
-        success: true,
-        data: tag
-    });
-});
-
-
-
-exports.deleteTag = asyncHandler(async (req, res, next) => {
-    const tag = await Tag.findByIdAndUpdate(req.params.id, {
-        isActive: false
-    }, {
-        new: true,
-        runValidators: true
-    });
+    if (!tag) {
+        return next(new createError(404, `Tag not found with id ${req.params.id}`));
+    }
 
     res.status(200).json({
         success: true,
