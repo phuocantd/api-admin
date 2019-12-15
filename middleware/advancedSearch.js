@@ -1,6 +1,6 @@
 const createError = require('http-errors');
 
-const advancedSearch = (model, populate) => async (req, res, next) => {
+const advancedSearch = (model, populate, special) => async (req, res, next) => {
     let query, results;
 
     const reqQuery = {
@@ -17,11 +17,12 @@ const advancedSearch = (model, populate) => async (req, res, next) => {
 
     queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
 
-    query = model.find(JSON.parse(queryStr));
+    const condition = (JSON.parse(queryStr));
+
+    query = model.find({...condition, ...special});
 
     // count total for paging
     const total = await model.find(JSON.parse(queryStr)).countDocuments();
-    console.log(total);
     
     // ex: ?select=paymentPerHour,userInfo
     if (req.query.select) {

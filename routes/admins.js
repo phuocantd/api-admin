@@ -24,7 +24,7 @@ router.use(authorized('root'));
 
 router
   .route('/')
-  .get(advancedSearch(Admin), getAdmins)
+  .get(advancedSearch(Admin, undefined, {role: 'admin'}), getAdmins)
   .post(createAdmin)
 
 router

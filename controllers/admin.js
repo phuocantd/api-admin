@@ -36,8 +36,12 @@ exports.createAdmin = asyncHandler(async (req, res, next) => {
     const salt = await bcrypt.genSalt(10);
     const password = await bcrypt.hash(req.body.password, salt);
     req.body.password = password;
+
+    if (req.body.role === 'root') {
+        return next(new createError(403, 'You are not authorized to access this feature'));
+    }
+
     const admin = await Admin.create(req.body);
-    console.log('aaa');
     res.status(201).json({
         success: true,
         data: admin
@@ -52,6 +56,10 @@ exports.updateAdmin = asyncHandler(async (req, res, next) => {
         const salt = await bcrypt.genSalt(10);
         const password = await bcrypt.hash(req.body.password, salt);
         req.body.password = password;
+    }
+
+    if (req.body.role === 'root') {
+        return next(new createError(403, 'You are not authorized to access this feature'));
     }
 
     const admin = await Admin.findByIdAndUpdate(req.params.id, req.body, {
@@ -71,6 +79,10 @@ exports.deleteAdmin = asyncHandler(async (req, res, next) => {
     const admin = await Admin.findByIdAndDelete(req.params.id);
     if (!admin) {
         return next(new createError(404, 'User not found'));
+    }
+
+    if (admin.role === 'root') {
+        return next(new createError(403, 'You are not authorized to access this feature'));
     }
 
     res.status(200).json({
