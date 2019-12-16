@@ -19,8 +19,8 @@ const {
 // protected has override code below
 // router.use(passport.authenticate('jwt', {session: false}));
 
-// router.use(protected);
-// router.use(authorized('root'));
+router.use(protected);
+router.use(authorized('root'));
 
 router
   .route('/')
