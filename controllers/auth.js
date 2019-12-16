@@ -36,8 +36,7 @@ const sendTokenResponse = (statusCode, res, user) => {
 
     const token = jwt.sign(
         payload,
-        process.env.JWT_SECRET,
-        {expiresIn: '30m'});
+        process.env.JWT_SECRET)
 
     res.status(statusCode).json({
         success: true,
