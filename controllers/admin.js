@@ -22,6 +22,10 @@ exports.getAdmin = asyncHandler(async (req, res, next) => {
         return next(new createError(404, 'User not found'));
     }
 
+    if (admin.role === 'root') {
+        return next(new createError(403, 'You are not authozied to access this page'));
+    }
+
 
     res.status(200).json({
         success: true,
@@ -62,10 +66,16 @@ exports.updateAdmin = asyncHandler(async (req, res, next) => {
         return next(new createError(403, 'You are not authorized to access this feature'));
     }
 
-    const admin = await Admin.findByIdAndUpdate(req.params.id, req.body, {
-        new: true,
-        runValidators: true
-    });
+    const admin = await Admin.findById(req.params.id)
+
+    if (admin.role === 'root') {
+        return next(new createError(403, 'You are not authorized to access this feature'));
+    }
+
+    if (req.body.name) admin.name = req.body.name;
+    if (req.body.email) admin.email = req.body.email;
+
+    await admin.save();
 
     res.status(200).json({
         success: true,
@@ -76,7 +86,8 @@ exports.updateAdmin = asyncHandler(async (req, res, next) => {
 // @route     DELETE /api/admins/:id
 // @access    Private: root
 exports.deleteAdmin = asyncHandler(async (req, res, next) => {
-    const admin = await Admin.findByIdAndDelete(req.params.id);
+    const admin = await Admin.findById(req.params.id);
+    
     if (!admin) {
         return next(new createError(404, 'User not found'));
     }
@@ -84,6 +95,8 @@ exports.deleteAdmin = asyncHandler(async (req, res, next) => {
     if (admin.role === 'root') {
         return next(new createError(403, 'You are not authorized to access this feature'));
     }
+
+    await admin.delete();
 
     res.status(200).json({
         success: true,
