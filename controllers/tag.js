@@ -4,9 +4,13 @@ const Tag = require('../models/Tag');
 
 
 exports.getTags = asyncHandler(async (req, res, next) => {
+    const results = await Tag.find();
     res.status(200).json({
         success: true,
-        data: res.advancedSearch
+        data: {
+            count: results.length,
+            results
+        }
     });
 });
 

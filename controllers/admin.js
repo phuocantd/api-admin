@@ -6,9 +6,13 @@ const Admin = require('../models/Admin');
 // @route     GET /api/admins
 // @access    Private: root
 exports.getAdmins = asyncHandler(async (req, res, next) => {
+    const results = await Admin.find();
     res.status(200).json({
         success: true,
-        data: res.advancedSearch
+        data: {
+            count: results.length,
+            results
+        }
     });
 });
 

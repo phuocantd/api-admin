@@ -6,9 +6,13 @@ const User = require('../models/User');
 // @route:      GET /api/users
 // @access:     private (root, admin)
 exports.getUsers = asyncHandler(async (req, res, next) => {
+    const results = await User.find();
     res.status(200).json({
         success: true,
-        data: res.advancedSearch
+        data: {
+            count: results.length,
+            results
+        }
     });
 });
 
