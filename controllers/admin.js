@@ -6,9 +6,7 @@ const Admin = require('../models/Admin');
 // @route     GET /api/admins
 // @access    Private: root
 exports.getAdmins = asyncHandler(async (req, res, next) => {
-    let results = await Admin.find();
-
-    results = results.filter(result => result.role === 'admin');
+    const results = await Admin.find({role: 'admin'});
     
     res.status(200).json({
         success: true,

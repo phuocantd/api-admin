@@ -1,7 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const advancedSearch = require('../middleware/advancedSearch');
-const Admin = require('../models/Admin');
 
 const {
   getAdmins,
@@ -24,7 +22,7 @@ router.use(authorized('root'));
 
 router
   .route('/')
-  .get(advancedSearch(Admin, undefined, {role: 'admin'}), getAdmins)
+  .get(getAdmins)
   .post(createAdmin)
 
 router

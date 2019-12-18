@@ -1,7 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User');
-const advancedSearch = require('../middleware/advancedSearch');
 
 const {
     getUsers,
@@ -17,7 +15,7 @@ router.use(protected);
 
 router
     .route('/')
-    .get(advancedSearch(User), getUsers)
+    .get(getUsers)
 
 router
     .route('/:id')

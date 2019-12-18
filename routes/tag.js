@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const Tag = require('../models/Tag');
 
 const {
     getTags,
@@ -9,7 +8,6 @@ const {
     updateTag
 } = require('../controllers/tag');
 
-const advancedSearch =  require('../middleware/advancedSearch');
 
 const {
     protected
@@ -19,7 +17,7 @@ router.use(protected);
 
 router
     .route('/')
-    .get(advancedSearch(Tag), getTags)
+    .get(getTags)
     .post(createTag);
 
 router

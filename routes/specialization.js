@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const Specialization = require('../models/Specialization');
 
 const {
     getSpecializations,
@@ -9,7 +8,6 @@ const {
     updateSpecialization
 } = require('../controllers/specializations');
 
-const advancedSearch = require('../middleware/advancedSearch');
 
 const {
     protected
@@ -19,7 +17,7 @@ router.use(protected);
 
 router
     .route('/')
-    .get(advancedSearch(Specialization), getSpecializations)
+    .get(getSpecializations)
     .post(createSpecialization);
 
 router
