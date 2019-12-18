@@ -15,6 +15,7 @@ const adminsRouter = require('./routes/admins');
 const usersRouter = require('./routes/user');
 const tagsRouter = require('./routes/tag');
 const specializationsRouter = require('./routes/specialization');
+const contractRouter = require('./routes/contract');
 
 const corsOption = {
     origin: true,
@@ -28,6 +29,14 @@ app.use(cors(corsOption));
 connectDB();
 passportConfig();
 
+require('./models/Complaint');
+require('./models/Contract');
+require('./models/Specialization');
+require('./models/Student');
+require('./models/Tag');
+require('./models/Tutor');
+require('./models/User');
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -40,6 +49,7 @@ app.use('/api/admins', adminsRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/tags', tagsRouter);
 app.use('/api/specializations', specializationsRouter);
+app.use('/api/contracts', contractRouter);
 
 app.use(errorHandler);
 
