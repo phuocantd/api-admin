@@ -16,6 +16,7 @@ const usersRouter = require('./routes/user');
 const tagsRouter = require('./routes/tag');
 const specializationsRouter = require('./routes/specialization');
 const contractRouter = require('./routes/contract');
+const complaintRouter = require('./routes/complaint');
 
 const corsOption = {
     origin: true,
@@ -50,6 +51,7 @@ app.use('/api/users', usersRouter);
 app.use('/api/tags', tagsRouter);
 app.use('/api/specializations', specializationsRouter);
 app.use('/api/contracts', contractRouter);
+app.use('/api/complaints', complaintRouter);
 
 app.use(errorHandler);
 

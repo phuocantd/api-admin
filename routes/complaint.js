@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 
 const {
-    getContracts,
-    getContract,
-    updateContract
-} = require('../controllers/contract');
+    getComplaints,
+    getComplaint,
+    updateComplaint
+} = require('../controllers/complaint');
 
 
 const {
@@ -16,11 +16,11 @@ router.use(protected);
 
 router
     .route('/')
-    .get(getContracts)
+    .get(getComplaints)
 
 router
     .route('/:id')
-    .get(getContract)
-    .put(updateContract)
+    .get(getComplaint)
+    .put(updateComplaint)
 
 module.exports = router;
