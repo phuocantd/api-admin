@@ -17,6 +17,9 @@ const tagsRouter = require('./routes/tag');
 const specializationsRouter = require('./routes/specialization');
 const contractRouter = require('./routes/contract');
 const complaintRouter = require('./routes/complaint');
+const statisticsRouter = require('./routes/statistics');
+const topsRouter = require('./routes/top');
+
 
 const corsOption = {
     origin: true,
@@ -52,6 +55,8 @@ app.use('/api/tags', tagsRouter);
 app.use('/api/specializations', specializationsRouter);
 app.use('/api/contracts', contractRouter);
 app.use('/api/complaints', complaintRouter);
+app.use('/api/statistics', statisticsRouter);
+app.use('/api/tops', topsRouter);
 
 app.use(errorHandler);
 
