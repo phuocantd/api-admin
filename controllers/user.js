@@ -163,7 +163,7 @@ exports.getUser = asyncHandler(async (req, res, next) => {
 
     res.status(200).json({
         success: true,
-        data: user !== null ? user : users
+        data: user !== null ? user : users[0]
     });
 });
 
