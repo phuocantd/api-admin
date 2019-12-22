@@ -41,34 +41,50 @@ exports.getUser = asyncHandler(async (req, res, next) => {
 
     if (user.role === 'tutor') {
         user = null;
-        users = await User.aggregate([{
-            $match: {
-                _id: id
-            }
-        }, {
-            $lookup: {
-                from: 'tutors',
-                localField: '_id',
-                foreignField: 'userInfo',
-                as: 'tutorInfo'
+        users = await User.aggregate([
+            {
+                $match: {
+                    _id: id
+                }
+            }, 
+            {
+                $lookup: {
+                    from: 'tutors',
+                    localField: '_id',
+                    foreignField: 'userInfo',
+                    as: 'tutorInfo'
+                },
+            }, 
+            {
+                $unwind: "$tutorInfo"
+            }, 
+            {
+                $lookup: {
+                    from: 'tags',
+                    localField: 'tutorInfo.tags',
+                    foreignField: '_id',
+                    as: 'tutorInfo.tags'
+                }
+            }, 
+            {
+                $project: {
+                    password: 0,
+                }
+            }, 
+            {
+                $lookup: {
+                    from: 'contracts',
+                    localField: 'tutorInfo._id',
+                    foreignField: 'tutor',
+                    as: 'histories'
+                },
             },
-        }, {
-            $unwind: "$tutorInfo"
-        }, {
-            $lookup: {
-                from: 'tags',
-                localField: 'tutorInfo.tags',
-                foreignField: '_id',
-                as: 'tutorInfo.tags'
-            }
-        }, {
-            $project: {
-                password: 0,
-                // tags: `$tutorInfo.tags`,
-                // paymentPerHour: `$tutorInfo.paymentPerHour`,
-                // selfIntro: `$tutorInfo.selfIntro`
-            }
-        }])
+            {
+                $project: {
+                    'histories.tutor': 0,
+                }
+            },
+        ])
     }
 
     res.status(200).json({
