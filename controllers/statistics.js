@@ -72,7 +72,10 @@ exports.getStatistics = asyncHandler(async (req, res, next) => {
         pipeline[3].$group._id.month = '$month';
     }
 
-    if (period !== year) pipeline[3].$group._id.year = '$year';
+    console.log(period);
+    
+    // has 1 case override line 66
+    pipeline[3].$group._id.year = '$year';
 
     const results = await Contract.aggregate(pipeline);
 
