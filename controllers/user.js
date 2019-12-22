@@ -80,16 +80,90 @@ exports.getUser = asyncHandler(async (req, res, next) => {
                 },
             },
             {
-                $project: {
-                    'histories.tutor': 0,
+                $unwind: 
+                {
+                    path: '$histories',
+                    preserveNullAndEmptyArrays: true
                 }
             },
+            {
+                $lookup: {
+                    from: 'students',
+                    localField: 'histories.student',
+                    foreignField: '_id',
+                    as: 'histories.student'
+                }
+            },
+            {
+                $unwind:{ 
+                    path: '$histories.student',
+                    preserveNullAndEmptyArrays: true
+                }
+            },
+            {
+                $lookup: {
+                    from: 'users',
+                    localField: 'histories.student.userInfo',
+                    foreignField: '_id',
+                    as: 'histories.student'
+                }
+            }, 
+            {
+                $unwind: {
+                    path: '$histories.student',
+                    preserveNullAndEmptyArrays: true
+                }
+            },
+            {
+                $group: {
+                    _id: '$_id',
+                    avatar: {
+                        $first: '$avatar'
+                    },
+                    isActive: {
+                        $first: '$isActive'
+                    }, 
+                    email: {
+                        $first: '$email'
+                    }, 
+                    name: {
+                        $first: '$name'
+                    }, 
+                    role: {
+                        $first: '$role'
+                    },
+                    createdAt: {
+                        $first: '$createdAt'
+                    },
+                    address: {
+                        $first: '$address'
+                    },
+                    balance: {
+                        $first: '$balance'
+                    },
+                    tutorInfo: {
+                        $first: '$tutorInfo'
+                    },
+                    histories: {'$push': '$histories'}
+                }
+            },
+            {
+                $project: {
+                    'histories.student.avatar': 0,
+                    'histories.student.isActive': 0,
+                    'histories.student.password': 0,
+                    'histories.student.role': 0,
+                    'histories.student.createdAt': 0,
+                    'histories.student.balance': 0,
+                    'histories.student.address': 0,
+                }
+            }
         ])
     }
 
     res.status(200).json({
         success: true,
-        data: user !== null ? user : users[0]
+        data: user !== null ? user : users
     });
 });
 
