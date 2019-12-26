@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 const {
-    getStatistics
+    getStatistics,
+    getDashboard
 } = require('../controllers/statistics');
 
 
@@ -15,5 +16,9 @@ router.use(protected);
 router
     .route('/')
     .get(getStatistics)
+
+router
+    .route('/dashboard')
+    .get(getDashboard)
 
 module.exports = router;
