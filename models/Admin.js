@@ -19,10 +19,6 @@ const AdminSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please fill in your name']
     },
-    avatar: {
-        type: String,
-        default: 'https://my-final-project-ptudwnc.s3-ap-southeast-1.amazonaws.com/firefly_by_guweiz_d9kjcqt-fullview/40c8569c-aaa2-4cca-bd67-d2876632b366.jpg'
-    },
     role: {
         type: String,
         default: 'admin'

@@ -2,11 +2,10 @@ const express = require('express');
 const router = express.Router();
 
 const {
-    getTags,
-    getTag,
-    createTag,
-    updateTag
-} = require('../controllers/tag');
+    getComplaints,
+    getComplaint,
+    updateComplaint
+} = require('../controllers/complaint');
 
 
 const {
@@ -17,13 +16,11 @@ router.use(protected);
 
 router
     .route('/')
-    .get(getTags)
-    .post(createTag);
+    .get(getComplaints)
 
 router
     .route('/:id')
-    .get(getTag)
-    .put(updateTag)
-
+    .get(getComplaint)
+    .put(updateComplaint)
 
 module.exports = router;

@@ -4,19 +4,25 @@ const Tag = require('../models/Tag');
 
 
 exports.getTags = asyncHandler(async (req, res, next) => {
-    const tags = await Tag.find({isActive: true});
-
-    return res.status(200).json({
+    const results = await Tag.find();
+    res.status(200).json({
         success: true,
-        length: tags.length,
-        data: tags
-    })
+        data: {
+            count: results.length,
+            results
+        }
+    });
 });
 
 
 
 exports.getTag = asyncHandler(async (req, res, next) => {
     const tag = await Tag.findById(req.params.id);
+
+    if (!tag) {
+        return next(new createError(404, `Tag not found with id ${req.params.id}`));
+    }
+
 
     res.status(200).json({
         success: true,
@@ -40,23 +46,13 @@ exports.createTag = asyncHandler(async (req, res, next) => {
 
 exports.updateTag = asyncHandler(async (req, res, next) => {
     const tag = await Tag.findByIdAndUpdate(req.params.id, req.body, {
-        new: true, 
+        new: true,
         runValidators: true
     });
 
-    res.status(200).json({
-        success: true,
-        data: tag
-    });
-});
-
-
-
-exports.deleteTag = asyncHandler(async (req, res, next) => {
-    const tag = await Tag.findByIdAndUpdate(req.params.id, {isActive: false}, {
-        new: true, 
-        runValidators: true
-    });
+    if (!tag) {
+        return next(new createError(404, `Tag not found with id ${req.params.id}`));
+    }
 
     res.status(200).json({
         success: true,

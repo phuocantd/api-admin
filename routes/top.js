@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 
 const {
-    getUsers,
-    getUser,
-    setActiveUser
-} = require('../controllers/user');
+    getTopByTutor,
+    getTopByTag
+} = require('../controllers/top');
+
 
 const {
     protected
@@ -14,12 +14,11 @@ const {
 router.use(protected);
 
 router
-    .route('/')
-    .get(getUsers)
+    .route('/users')
+    .get(getTopByTutor)
 
-router
-    .route('/:id')
-    .get(getUser)
-    .put(setActiveUser)
+    router
+    .route('/tags')
+    .get(getTopByTag)
 
 module.exports = router;

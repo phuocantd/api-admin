@@ -36,7 +36,7 @@ const sendTokenResponse = (statusCode, res, user) => {
 
     const token = jwt.sign(
         payload,
-        process.env.JWT_SECRET);
+        process.env.JWT_SECRET)
 
     res.status(statusCode).json({
         success: true,

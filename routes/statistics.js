@@ -2,11 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 const {
-    getTags,
-    getTag,
-    createTag,
-    updateTag
-} = require('../controllers/tag');
+    getStatistics
+} = require('../controllers/statistics');
 
 
 const {
@@ -17,13 +14,6 @@ router.use(protected);
 
 router
     .route('/')
-    .get(getTags)
-    .post(createTag);
-
-router
-    .route('/:id')
-    .get(getTag)
-    .put(updateTag)
-
+    .get(getStatistics)
 
 module.exports = router;

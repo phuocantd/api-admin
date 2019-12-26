@@ -4,7 +4,6 @@ const constants = require('../constants/constant');
 const {
     Processing,
     Completed,
-    Complaining,
     Canceled
 } = constants;
 
@@ -22,12 +21,14 @@ const ComplaintSchema = new mongoose.Schema({
     status: {
         type: String,
         required: true,
-        enum: [Processing, Completed, Complaining, Canceled]
+        enum: [Processing, Completed, Canceled]
     },
     description: {
         type: String,
         required: [true, 'Please add some text in description']
     }
+}, {
+    timestamps: true
 });
 
 module.exports = mongoose.model('Complaint', ComplaintSchema);
