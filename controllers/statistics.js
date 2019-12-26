@@ -94,8 +94,6 @@ exports.getDashboard = asyncHandler(async (req, res, next) => {
     const tagLength = await Tag.find().countDocuments();
     const specializationLlength = await Specialization.find().countDocuments();
     const userLength = await User.find().countDocuments();
-    const tutorLength = await Tutor.find().countDocuments();
-    const studentLength = await Student.find().countDocuments();
     const contractLength = await Contract.find().countDocuments();
     const complaintLength = await Complaint.find().countDocuments();
     
