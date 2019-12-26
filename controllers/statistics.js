@@ -5,8 +5,6 @@ const Complaint = require('../models/Complaint');
 const Tag = require('../models/Tag');
 const Specialization = require('../models/Specialization');
 const User = require('../models/User');
-const Tutor = require('../models/Tutor');
-const Student = require('../models/Student');
 
 const {Completed} = require('../constants/constant');
 
@@ -115,14 +113,6 @@ exports.getDashboard = asyncHandler(async (req, res, next) => {
             {
                 name: 'User',
                 length: userLength
-            },
-            {
-                name: 'Tutor',
-                length: tutorLength
-            },
-            {
-                name: 'Student',
-                length: studentLength
             },
             {
                 name: 'Contract',
