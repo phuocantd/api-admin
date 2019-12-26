@@ -1,6 +1,10 @@
 const createError = require('http-errors');
 const asyncHandler = require('../middleware/async');
 const Contract = require('../models/Contract');
+const Complaint = require('../models/Complaint');
+const Tag = require('../models/Tag');
+const Specialization = require('../models/Specialization');
+const User = require('../models/User');
 
 const {Completed} = require('../constants/constant');
 
@@ -85,3 +89,38 @@ exports.getStatistics = asyncHandler(async (req, res, next) => {
         data: results
     });
 });
+
+exports.getDashboard = asyncHandler(async (req, res, next) => {
+    const tagLength = await Tag.find().countDocuments();
+    const specializationLlength = await Specialization.find().countDocuments();
+    const userLength = await User.find().countDocuments();
+    const contractLength = await Contract.find().countDocuments();
+    const complaintLength = await Complaint.find().countDocuments();
+    
+    res.status(200).json({
+        success: true,
+        data: [
+            {
+                name: 'Tag',
+                length: tagLength
+            },
+            {
+                name: 'Specialization',
+                length: specializationLlength
+            },
+            {
+                name: 'User',
+                length: userLength
+            },
+            {
+                name: 'Contract',
+                length: contractLength
+            },
+            {
+                name: 'Complaint',
+                length: complaintLength
+            },
+        ]
+    });
+
+})
